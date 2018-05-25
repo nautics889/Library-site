@@ -17,9 +17,10 @@ class CreateBooksTable extends Migration
             $table->increments('id');
             $table->string('title', 80);
             $table->text('description', 400);
-            $table->string('picrel');
-            $table->boolean('instock');
-            $table->decimal('price', 10, 5);
+            $table->string('picrel')->nullable();
+            $table->boolean('instock')->nullable();
+            $table->decimal('price', 10, 5)->nullable();
+            $table->string('author', 120)->nullable();
             $table->timestamps();
         });
     }

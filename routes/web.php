@@ -18,3 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/books', 'BooksController@getBooksList')->name('books');
+
+Route::post('add_book', 'BooksController@addBook')->name('add_book');
