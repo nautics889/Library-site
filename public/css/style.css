@@ -1,0 +1,157 @@
+body {
+	padding: 0;
+	margin: 0;
+}
+
+header {
+	display: flex;
+	justify-content: space-between;
+
+	margin: 15px 15px 0px;
+	padding-bottom: 15px;
+
+	border-bottom: solid 1px #a0a0a0;
+}
+
+footer {
+	height: 70px;
+
+	margin: 50px 15px 0 15px;
+
+	font-family: Arial;
+	font-size: 1.4em;
+
+	border-top: solid 1px #a0a0a0;
+}
+
+footer p {
+	text-align: center;
+}
+
+/*base layout*/
+.header_logo_title_wrapper {
+	width: 50%;
+}
+
+.header_logo_title_wrapper a {
+	display: flex;
+
+	text-decoration: none;
+	color: #000;
+}
+
+.header_logo {
+	width: 120px;
+	height: 120px;
+}
+
+.header_logo img {
+	width: 120px;
+	height: 110px;
+}
+
+.logout {
+	margin-top: 15px;
+}
+
+.category {
+	max-width: 525px;
+	border-radius: 50%;
+}
+
+.category:hover {
+	background-color: #dedede;
+}
+
+.category a {
+	text-decoration: none;
+	color: #262626;
+}
+
+.category a img {
+	width: 520px;
+	height: 420px;
+}
+
+.kind_item {
+	margin-bottom: 50px;
+}
+
+.kind {
+	font-family: Century Gothic;
+	font-size: 1.5em;
+
+	color: #9fadc4;
+}
+
+.list_item {
+	font-family: Helvetica;
+	font-size: 1em;
+}
+
+.list_item i {
+	color: #3d3d3d;
+}
+
+.book_title {
+	font-size: 1.1em;
+}
+
+#header_title {
+	font-family: Century Gothic;
+	font-size: 4em;
+	text-shadow: 0 2px 5px #fff;
+
+	transition: 1s;
+
+	margin-left: 25px;
+	padding-right: 5px;
+
+	border-radius: 50%;
+}
+
+#login {
+	font-family: Helvetica;
+	font-size: 1.4em;
+
+	padding-top: 15px;
+}
+
+#login li {
+	list-style-type: none;
+	margin-bottom: 15px;
+}
+
+#logout, #navbarDropdown, #login li a {
+	text-decoration: none;
+	color: #000;
+}
+
+#logout_icon {
+	width: 20px;
+	height: 20px;
+}
+
+/*main (home) page*/
+#main_categories {
+	display: flex;
+	justify-content: space-around;
+
+	margin-top: 50px;
+
+	font-size: 3.2em;
+	font-family: Helvetica;
+}
+
+#right_category {
+	float: right;
+}
+
+/*lists of books*/
+#list_wrapper {
+	margin: 25px 15px;
+}
+
+#list_wrapper hr {
+	opacity: 0.3;
+}

@@ -11,14 +11,16 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'BooksController@getMainPage')->name('main');
 
-Route::get('/books', 'BooksController@getBooksList')->name('books');
+Route::get('art', 'BooksController@getBooksListArt')->name('art');
 
-Route::post('add_book', 'BooksController@addBook')->name('add_book');
+Route::get('scientific', 'BooksController@getMainPage')->name('scientific');
+
+Route::get('book/{id}', 'BooksController@getBooksItem')->name('item');
+
+Route::post('add_book', 'BooksController@addBook')->middleware('permission')->name('add_book');
+
+Route::post('add_comment', 'BooksController@addComment')->name('add_comment');
