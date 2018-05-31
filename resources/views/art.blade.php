@@ -56,7 +56,7 @@
 	@else
 		@if(Auth::user()['role']=='admin')
 			<p>Add:</p>
-			<form method="POST" action="{{route('add_book')}}">
+			<form method="POST" action="{{route('add_book')}}" enctype="multipart/form-data">
 				<p>Title:</p><input type="text" name="title" id="title"><br>
 				<p>Description:</p><textarea name="description" id="description" cols="30" rows="10"></textarea><br>
 				<select name="select_type" id="select_type">

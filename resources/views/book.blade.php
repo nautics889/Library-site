@@ -3,8 +3,12 @@
 @section('content')
 	<div class="book_item">
 		<h1>{{$book->title}}</h1>
+		<img src="{{asset('upload/'.$book->picrel)}}" alt="">
 	</div>
 	<div class="comments">
+		@foreach($comments as $comment)
+			<p>{{$comment->comment}}</p>
+		@endforeach
 		@guest
 		@else
 		<form action="{{route('add_comment')}}" method="POST">

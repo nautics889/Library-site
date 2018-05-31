@@ -19,15 +19,19 @@ class BooksController extends Controller
     }
 
     public function getBooksItem($id) {
-    	return view('book', ['book'=>Book::find($id)]);
+    	$comments = Comment::where('book_id', $id)->get();
+    	return view('book', ['book'=>Book::find($id), 'comments'=>$comments]);
     }
 
     public function addBook(Request $request) {
     	$book = new Book;
-    	$path =&gt; public_path().'\upload\\';
 
     	if($request->method()=='POST') {
+    		$path = public_path()."\upload\\";
     		$file = $request->file('picrel');
+    		$filename = str_random(20) .'.' . $file->getClientOriginalExtension() ?: 'png';
+    		$img = ImageInt::make($file);
+    		$img->resize(200,200)->save($path . $filename);
 
     		$book->fill(array(
        			'title' => $request['title'],
@@ -37,6 +41,7 @@ class BooksController extends Controller
     			'author' => $request['author'],
     			'price' => $request['price'],
     			'instock' => $request['instock'],
+    			'picrel' => "$filename",
     		));
     		$book->save();
     	}
@@ -53,5 +58,6 @@ class BooksController extends Controller
     		));
     		$comment->save();
     	}
+    	return redirect()->route('item', $request['book']);
     }
 }
