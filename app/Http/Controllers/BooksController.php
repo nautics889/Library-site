@@ -5,12 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Book;
 use App\Comment;
+use App\User;
 use Intervention\Image\Facades\Image as ImageInt;
 
 class BooksController extends Controller
 {
 	public function getMainPage() {
 		return view('main');
+	}
+
+	public function admin() {
+		return view('admin', ['users'=>User::all()]);
 	}
 
     public function getBooksListArt() {
@@ -20,9 +25,51 @@ class BooksController extends Controller
 
     public function getBooksItem($id) {
     	$comments = Comment::where('book_id', $id)->get();
-    	return view('book', ['book'=>Book::find($id), 'comments'=>$comments]);
+    	$commentators = array();
+    	foreach ($comments as $comment) {
+    		array_push($commentators, User::find($comment->user_id));
+    	}
+    	return view('book', ['book'=>Book::find($id), 'comments'=>$comments, 'commentators'=>$commentators]);
     }
 
+    public function editItem($id) {
+    	return view('edit_item', ['book'=>Book::find($id)]);
+    }
+
+    public function editBook(Request $request) {
+    	$book = Book::find($request['id']);
+
+   		if($request->file('picrel')) {
+   			$path = public_path()."\upload\\";
+			$file = $request->file('picrel');
+			$filename = str_random(20) .'.' . $file->getClientOriginalExtension() ?: 'png';
+			$img = ImageInt::make($file);
+			$img->resize(200,200)->save($path . $filename);
+			$book->update(array(
+	       			'title' => $request['title'],
+	    			'description' => $request['description'],
+	    			'type' => $request['select_type'],
+	    			'kind' => $request['select_kind'],
+	    			'author' => $request['author'],
+	    			'price' => $request['price'],
+	    			'instock' => $request['instock'],
+	    			'picrel' => "$filename",
+	    		));
+		}
+    	else {
+    		$book->update(array(
+	       			'title' => $request['title'],
+	    			'description' => $request['description'],
+	    			'type' => $request['select_type'],
+	    			'kind' => $request['select_kind'],
+	    			'author' => $request['author'],
+	    			'price' => $request['price'],
+	    			'instock' => $request['instock'],
+	    		));
+    	}
+    	return redirect()->route($request['select_type']); 
+    }
+ 
     public function addBook(Request $request) {
     	$book = new Book;
 
@@ -45,7 +92,7 @@ class BooksController extends Controller
     		));
     		$book->save();
     	}
-    	return view('add_success', ['title' => $request['title']]);
+    	return redirect()->route('main');
     }
 
     public function addComment(Request $request) {
