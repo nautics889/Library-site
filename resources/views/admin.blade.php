@@ -30,4 +30,16 @@
 	@foreach($users as $user)
 	<p><a href="{{route('profile', $user->id)}}">{{$user->name}}</a> registered at {{$user->created_at}}</p>
 	@endforeach
+<hr>
+
+<h3>Orderlist:</h3>
+	@php
+  	  $i = 0
+	@endphp
+	@foreach($orders as $book => $name)
+	<p><b>{{$name}}</b> ordered <b>{{$book}}</b> book. | <a href="{{route('done', $or[$i]->id)}}">Done</a></p>
+	@php
+	    $i += 1
+	@endphp
+	@endforeach
 @endif

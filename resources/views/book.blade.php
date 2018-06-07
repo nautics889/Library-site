@@ -17,6 +17,17 @@
 			<p id="instock">In stock</p>
 			@endif
 		</div>
+		@guest
+		@else
+		<div class="order_wrapper">
+			<form action="{{route('order')}}" method="POST">
+				<input type="hidden" value="{{Auth::user()['id']}}" name="us_id">
+				<input type="hidden" value="{{$book->id}}" name="b_id">
+				<button type="submit" name="submit">Order!</button>
+				{{ csrf_field() }}
+			</form>
+		</div>
+		@endguest
 		<div class="comments">
 			@for($i=0; $i<count($comments); $i++)
 

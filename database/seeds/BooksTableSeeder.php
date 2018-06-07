@@ -4,7 +4,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use App\Book;
 
-require_once 'C:\Laravel\library\vendor\fzaninotto\faker\src\autoload.php';
+require_once 'C:\lara_2\Sample\vendor\fzaninotto\faker\src\autoload.php';
 
 class BooksTableSeeder extends Seeder
 {

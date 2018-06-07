@@ -6,9 +6,11 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Comment;
 use App\Book;
+use App\Order;
 
 class HomeController extends Controller
-{
+{   
+
     /**
      * Create a new controller instance.
      *
@@ -37,4 +39,10 @@ class HomeController extends Controller
         }
         return view('profile', ['user'=>User::find($id), 'comments'=>$comments, 'books'=>$book_rel]);
     }
+
+    public function doneOrder($id) {
+        Order::find($id)->delete();
+        return redirect()->route('admin');
+    }
 }
+

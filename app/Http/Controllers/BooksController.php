@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Book;
 use App\Comment;
 use App\User;
+use App\Order;
 use Intervention\Image\Facades\Image as ImageInt;
 
 class BooksController extends Controller
@@ -15,7 +16,13 @@ class BooksController extends Controller
 	}
 
 	public function admin() {
-		return view('admin', ['users'=>User::all()]);
+        $users_or = array(); 
+        foreach(Order::all() as $order) {
+            $users_or[Book::find($order->book_id)->title] = User::find($order->user_id)->name;
+
+        }
+
+		return view('admin', ['users'=>User::all(), 'orders'=>$users_or, 'or'=>Order::all()]);
 	}
 
     public function getBooksListArt() {
@@ -106,5 +113,17 @@ class BooksController extends Controller
     		$comment->save();
     	}
     	return redirect()->route('item', $request['book']);
+    }
+
+    public function orderBook(Request $request) {
+    	$order = new Order;
+    	if($request->method()=='POST') {
+    		$order->fill(array(
+    			'book_id' => $request['b_id'],
+    			'user_id' => $request['us_id'],
+    		));
+    		$order->save();
+    	}
+    	return redirect()->route('main');
     }
 }

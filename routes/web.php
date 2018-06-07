@@ -32,3 +32,7 @@ Route::post('add_book', 'BooksController@addBook')->middleware('permission')->na
 Route::post('add_comment', 'BooksController@addComment')->name('add_comment');
 
 Route::post('edit_book', 'BooksController@editBook')->middleware('admin')->name('edit_book');
+
+Route::post('order', 'BooksController@orderBook')->name('order');
+
+Route::get('done/{id}', 'HomeController@doneOrder')->name('done');
